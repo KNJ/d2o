@@ -1,13 +1,9 @@
 <?php
 namespace Wazly;
 
+use PDO;
+
 class D2O extends PDO
 {
-    public $message;
-
-    public function say()
-    {
-        $this->message = 'Hello';
-        return $this->message;
-    }
+    // code
 }
