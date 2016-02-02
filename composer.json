@@ -1,0 +1,14 @@
+{
+    "name": "knj/d2o",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "KNJ",
+            "email": "knj@wazly.net"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {"Wazly\\": "src/"}
+    }
+}
