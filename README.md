@@ -1,2 +1,9 @@
 # D2O
-PHP Smart Data Object derived from PDO
+
+## Installation
+
+Use Composer.
+
+```sh
+composer require knj/d2o
+```
