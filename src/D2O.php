@@ -3,9 +3,12 @@ namespace Wazly;
 
 use PDO;
 
+require_once __DIR__ . '/D2OResult.php';
+
 class D2O extends PDO
 {
     protected $stmt; // PDOStatement
+    protected $result; // D2OResult
 
     public function state($statement, $driver_options = [])
     {
@@ -41,6 +44,12 @@ class D2O extends PDO
             }
         }
         return $this;
+    }
+
+    public function run()
+    {
+        $this->stmt->execute();
+        return new D2OResult($this->stmt);
     }
 
     public function execute()
