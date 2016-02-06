@@ -3,12 +3,23 @@ namespace Wazly;
 
 use PDO;
 
-require_once __DIR__ . '/D2OResult.php';
-
 class D2O extends PDO
 {
     protected $stmt; // PDOStatement
-    protected $result; // D2OResult
+    protected $styles = [
+        'a' => PDO::FETCH_ASSOC,
+        'arr' => PDO::FETCH_ASSOC,
+        'ary' => PDO::FETCH_ASSOC,
+        'array' => PDO::FETCH_ASSOC,
+        'assoc' => PDO::FETCH_ASSOC,
+        'association' => PDO::FETCH_ASSOC,
+        'n' => PDO::FETCH_NUM,
+        'num' => PDO::FETCH_NUM,
+        'number' => PDO::FETCH_NUM,
+        'o' => PDO::FETCH_OBJ,
+        'obj' => PDO::FETCH_OBJ,
+        'object' => PDO::FETCH_OBJ,
+    ];
 
     public function state($statement, $driver_options = [])
     {
@@ -46,10 +57,21 @@ class D2O extends PDO
         return $this;
     }
 
-    public function run()
+    public function run($input_parameters = [], $type = 'value')
     {
+        $this->bind($input_parameters, $type);
         $this->stmt->execute();
-        return new D2OResult($this->stmt);
+        return $this;
+    }
+
+    public function pick($style = 'object')
+    {
+        return $this->stmt->fetch($this->styles[$style]);
+    }
+
+    public function format($style = 'object')
+    {
+        return $this->stmt->fetchAll($this->styles[$style]);
     }
 
     public function execute()
