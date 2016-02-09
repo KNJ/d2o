@@ -1,5 +1,7 @@
 # D2O
 
+[![Build Status](https://travis-ci.org/KNJ/d2o.svg?branch=master)](https://travis-ci.org/KNJ/d2o)
+
 ## Installation
 
 Use Composer.
