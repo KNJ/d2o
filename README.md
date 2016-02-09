@@ -1,6 +1,6 @@
 # D2O
 
-[![Packagist Pre Release](https://img.shields.io/packagist/vpre/knj/d2o.svg)]()
+[![Packagist Pre Release](https://img.shields.io/packagist/vpre/knj/d2o.svg)](https://packagist.org/packages/knj/d2o)
 [![Build Status](https://travis-ci.org/KNJ/d2o.svg?branch=master)](https://travis-ci.org/KNJ/d2o)
 
 ## Installation
