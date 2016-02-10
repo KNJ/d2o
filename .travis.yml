@@ -8,7 +8,7 @@ install:
 - travis_retry composer install --prefer-source --no-interaction
 before_script:
 - mysql -u root -e "CREATE DATABASE test"
-- mysql -u root test < storage/dataset.sql
+- mysql -u root test < dataset.sql
 - mysql -u root -e "USE mysql; UPDATE user SET password=PASSWORD('password') WHERE
   user='root'; FLUSH PRIVILEGES"
 script:
