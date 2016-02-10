@@ -7,12 +7,13 @@ before_install:
 install:
 - travis_retry composer install --prefer-source --no-interaction
 before_script:
-- mysql -u root -e "CREATE DATABASE test"
-- mysql -u root -e "USE test; CREATE TABLE users (id int(11) unsigned NOT NULL AUTO_INCREMENT,
-  name varchar(255) NOT NULL DEFAULT '', PRIMARY KEY (id)) ENGINE=InnoDB DEFAULT CHARSET=utf8"
-- mysql -u root -e "USE test; INSERT INTO users (id, name) VALUES (1, 'knj')"
-- mysql -u root -e "USE mysql; UPDATE user SET password=PASSWORD('password') WHERE
-  user='root'; FLUSH PRIVILEGES"
+- mysql -u root -e
+  "CREATE DATABASE test"
+- mysql -u root test < storage/dataset.sql
+- mysql -u root -e
+  "USE mysql;
+  UPDATE user SET password=PASSWORD('password') WHERE user='root';
+  FLUSH PRIVILEGES"
 script:
 - vendor/bin/phpunit
 notifications:
