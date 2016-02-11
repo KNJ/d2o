@@ -16,6 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `elements`
+--
+
+DROP TABLE IF EXISTS `elements`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `elements` (
+  `number` int(11) unsigned NOT NULL,
+  `symbol` varchar(3) NOT NULL DEFAULT '',
+  `name` varchar(255) NOT NULL DEFAULT '',
+  `is_metal` tinyint(1) unsigned NOT NULL,
+  PRIMARY KEY (`number`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `elements`
+--
+
+LOCK TABLES `elements` WRITE;
+/*!40000 ALTER TABLE `elements` DISABLE KEYS */;
+INSERT INTO `elements` VALUES (1,'H','hydrogen',0),(2,'He','helium',0),(3,'Li','lithium',1);
+/*!40000 ALTER TABLE `elements` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 
@@ -48,4 +74,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-02-10 12:26:57
+-- Dump completed on 2016-02-11 15:45:46
