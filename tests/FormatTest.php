@@ -1,13 +1,13 @@
 <?php
 use Wazly\D2O;
 
-class FormatTest extends PHPUnit_Framework_TestCase
+class FormatTest extends D2OReady
 {
     public function testObjectFormat()
     {
-        $d2o = new D2O("mysql:dbname=test;host=localhost", 'root', 'password');
+        $this->d2o = new D2O("mysql:dbname=test;host=localhost", 'root', 'password');
         $sql = 'SELECT number, symbol, name FROM elements WHERE number <= 3';
-        $rows = $d2o->state($sql)
+        $rows = $this->d2o->state($sql)
             ->run()
             ->format();
         $this->assertArraySubset([
