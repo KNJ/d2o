@@ -82,16 +82,4 @@ class D2O extends PDO
         }
         return $this->stmt->fetchAll($this->styles[$style]);
     }
-
-    public function execute()
-    {
-        $this->stmt->execute();
-        return $this->stmt;
-    }
-
-    public function find()
-    {
-        $result = $this->execute();
-        return $result->fetchObject();
-    }
 }
