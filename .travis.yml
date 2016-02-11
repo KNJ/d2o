@@ -13,7 +13,7 @@ before_script:
 - mysql -u root -e
   "USE mysql; UPDATE user SET password=PASSWORD('password') WHERE user='root'; FLUSH PRIVILEGES"
 script:
-- vendor/bin/phpunit
+- vendor/bin/phpunit --coverage-text
 notifications:
   email: false
   slack:
