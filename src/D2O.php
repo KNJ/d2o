@@ -36,25 +36,23 @@ class D2O extends PDO
         return $this;
     }
 
-    public function bind($input_parameters, $type = 'value')
+    public function bind($input_parameters)
     {
         foreach ($input_parameters as $key => $value) {
             $value = (array) $value;
             if (!isset($value[1])) {
                 $value[1] = 'str';
             }
-            if ($type === 'param') {
-                $this->stmt->bindParam($key, $value[0], $this->types[$value[1]]);
-            } else {
-                $this->stmt->bindValue($key, $value[0], $this->types[$value[1]]);
-            }
+            $this->stmt->bindValue($key, $value[0], $this->types[$value[1]]);
         }
         return $this;
     }
 
-    public function run($input_parameters = [], $type = 'value')
+    public function run($input_parameters = false, $type = 'value')
     {
-        $this->bind($input_parameters, $type);
+        if ($input_parameters) {
+            $this->bind($input_parameters, $type);
+        }
         $this->stmt->execute();
         return $this;
     }
