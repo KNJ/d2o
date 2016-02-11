@@ -64,13 +64,27 @@ class D2O extends PDO
         return $this;
     }
 
-    public function pick($style = 'object')
+    public function pick($style = 'object', $options = [])
     {
         return $this->stmt->fetch($this->styles[$style]);
     }
 
-    public function format($style = 'object')
+    public function format($style = 'object', $options = [
+        'key' => false,
+    ])
     {
+        if ($style === 'group' || $style === 'g') {
+            $rows = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+            $result = [];
+            if (!empty($rows)) {
+                $key = $options['key'] ? $options['key'] : key(array_slice($rows[0], 0, 1));
+                foreach ($rows as $row) {
+                    $result[$row[$key]] = (object)$row;
+                    unset($result[$row[$key]]->$key);
+                }
+            }
+            return $result;
+        }
         return $this->stmt->fetchAll($this->styles[$style]);
     }
 
