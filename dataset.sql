@@ -37,7 +37,7 @@ CREATE TABLE `elements` (
 
 LOCK TABLES `elements` WRITE;
 /*!40000 ALTER TABLE `elements` DISABLE KEYS */;
-INSERT INTO `elements` VALUES (1,'H','hydrogen',0),(2,'He','helium',0),(3,'Li','lithium',1);
+INSERT INTO `elements` VALUES (1,'H','hydrogen',0),(2,'He','helium',0),(3,'Li','lithium',1),(4,'Be','berylium',1),(5,'B','boron',2),(6,'C','carbon',0),(7,'N','nitrogen',0);
 /*!40000 ALTER TABLE `elements` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -52,7 +52,7 @@ CREATE TABLE `users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -61,7 +61,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'knj');
+INSERT INTO `users` VALUES (1,'knj'),(2,'jnk'),(3,'jnk');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -74,4 +74,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-02-11 15:45:46
+-- Dump completed on 2016-02-11 22:36:19
