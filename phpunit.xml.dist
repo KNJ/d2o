@@ -1,7 +1,12 @@
-<phpunit>
+<phpunit bootstrap="tests/bootstrap.php">
   <testsuites>
     <testsuite name="D2O">
       <directory>tests</directory>
     </testsuite>
   </testsuites>
+  <filter>
+    <whitelist>
+      <directory suffix=".php">src</directory>
+    </whitelist>
+  </filter>
 </phpunit>

@@ -6,6 +6,15 @@ use PDO;
 class D2O extends PDO
 {
     protected $stmt; // PDOStatement
+    protected $types = [
+        'str' => PDO::PARAM_STR,
+        'bool' => PDO::PARAM_BOOL,
+        'null' => PDO::PARAM_NULL,
+        'int' => PDO::PARAM_INT,
+        'lob' => PDO::PARAM_LOB,
+        'stmt' => PDO::PARAM_STMT,
+        'input_output' => PDO::PARAM_INPUT_OUTPUT,
+    ];
     protected $styles = [
         'a' => PDO::FETCH_ASSOC,
         'arr' => PDO::FETCH_ASSOC,
@@ -31,27 +40,13 @@ class D2O extends PDO
     {
         foreach ($input_parameters as $key => $value) {
             $value = (array) $value;
-            if (isset($value[1])) {
-                if (strtoupper($value[1]) === 'BOOL') {
-                    $value[1] = PDO::PARAM_BOOL;
-                } else if (strtoupper($value[1]) === 'NULL') {
-                    $value[1] = PDO::PARAM_NULL;
-                } else if (strtoupper($value[1]) === 'INT') {
-                    $value[1] = PDO::PARAM_INT;
-                } else if (strtoupper($value[1]) === 'LOB') {
-                    $value[1] = PDO::PARAM_LOB;
-                } else if (strtoupper($value[1]) === 'STMT') {
-                    $value[1] = PDO::PARAM_STMT;
-                } else if (strtoupper($value[1]) === 'INPUT_OUTPUT') {
-                    $value[1] = PDO::PARAM_INPUT_OUTPUT;
-                }
-            } else {
-                $value[1] = PDO::PARAM_STR;
+            if (!isset($value[1])) {
+                $value[1] = 'str';
             }
             if ($type === 'param') {
-                $this->stmt->bindParam($key, $value[0], $value[1]);
+                $this->stmt->bindParam($key, $value[0], $this->types[$value[1]]);
             } else {
-                $this->stmt->bindValue($key, $value[0], $value[1]);
+                $this->stmt->bindValue($key, $value[0], $this->types[$value[1]]);
             }
         }
         return $this;
@@ -64,13 +59,27 @@ class D2O extends PDO
         return $this;
     }
 
-    public function pick($style = 'object')
+    public function pick($style = 'object', $options = [])
     {
         return $this->stmt->fetch($this->styles[$style]);
     }
 
-    public function format($style = 'object')
+    public function format($style = 'object', $options = [
+        'key' => false,
+    ])
     {
+        if ($style === 'group' || $style === 'g') {
+            $rows = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+            $result = [];
+            if (!empty($rows)) {
+                $key = $options['key'] ? $options['key'] : key(array_slice($rows[0], 0, 1));
+                foreach ($rows as $row) {
+                    $result[$row[$key]] = (object)$row;
+                    unset($result[$row[$key]]->$key);
+                }
+            }
+            return $result;
+        }
         return $this->stmt->fetchAll($this->styles[$style]);
     }
 

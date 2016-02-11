@@ -1,20 +1,20 @@
 language: php
-
 php:
-  - 5.6
-  - 7.0
-
+- 5.6
+- 7.0
 before_install:
-  - travis_retry composer self-update
-
+- travis_retry composer self-update
 install:
-  - travis_retry composer install --prefer-source --no-interaction
-
+- travis_retry composer install --prefer-source --no-interaction
 before_script:
-  - mysql -u root -e "CREATE DATABASE test"
-  - mysql -u root -e "USE test; CREATE TABLE users (id int(11) unsigned NOT NULL AUTO_INCREMENT, name varchar(255) NOT NULL DEFAULT '', PRIMARY KEY (id)) ENGINE=InnoDB DEFAULT CHARSET=utf8"
-  - mysql -u root -e "USE test; INSERT INTO users (id, name) VALUES (1, 'knj')"
-  - mysql -u root -e "USE mysql; UPDATE user SET password=PASSWORD('password') WHERE user='root'; FLUSH PRIVILEGES"
-
+- mysql -u root -e
+  "CREATE DATABASE test"
+- mysql -u root test < dataset.sql
+- mysql -u root -e
+  "USE mysql; UPDATE user SET password=PASSWORD('password') WHERE user='root'; FLUSH PRIVILEGES"
 script:
-  - vendor/bin/phpunit
+- vendor/bin/phpunit --coverage-text
+notifications:
+  email: false
+  slack:
+    secure: LUW7sYECJSWVV0Ny72nlhi4tvzfIFaSnJB3kFLVoUCDPpEZBOk0+6GVzxIAKmu58ZAoR70+5TPNOCLyfFsNuR53Ntax13ruMDXRdsQhjChCuva70ExVfQyc8UxCAwkJycEBVh7cWmke1TnksOawzWB+daHwOBVpwQRKzYNwC1b+QPrDk0CwpsESaBTGzWketb2pwPqxNJxKUUFxDgR8Hv2Nn3u786RJhsqPpwIG2rtnSb0pFUo/auXRh6XpmseXvaJ9msxVDruflqsD5pViLCdluLLXqaBXatbiDy+QmeTIMHTdEUbBE/r+qPx0Hnr1eNCY9wU4ATJ7Mb0DNZS0mmhcFOV9FZaHbfplOmjcCXNAriDmmV6k5R6hiwjCmZr1kx3EQO3GqCn7oLa+fUxV4Xlht+gtFIvT4hQQJj2dbFp48C10a+XpxLbusaWSg0dLnkumgoSiEvf4WSSreWeHp6Eajivdnz+m/nUURlWLZx0weALOH70hCOYCmiRONg57vLDszteMyeJV4nEXykAyPZo+Lr8g9+ypUlS589gz1qagQgkdB0gbTZeRRlleVXohn4ckgF/7kHm/ykQBOzY02cOOEFLsuLybouQI1adhX1neDaB12UIgB/Ihe14CcpTroRj9mzLBH5mwXeh7rJimBkklB80k2x8JfUI0xqWimq1g=
