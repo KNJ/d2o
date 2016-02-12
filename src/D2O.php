@@ -40,6 +40,9 @@ class D2O extends PDO
     {
         foreach ($input_parameters as $key => $value) {
             $value = (array) $value;
+            if (is_int($key)) {
+                $key = $key + 1;
+            }
             if (!isset($value[1])) {
                 $value[1] = 'str';
             }
