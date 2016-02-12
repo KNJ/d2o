@@ -13,7 +13,7 @@ composer require knj/d2o
 
 ## D2O from PDO
 
-If D2O, you can use PDO and PDOStatement with only 1 statement using chain method:
+If D2O, you can use PDO and PDOStatement with only 1 statement using method chaining:
 
 ```php
 <?php
@@ -60,7 +60,7 @@ $d2o->state($sql); // returns $d2o
 $d2o->state($sql)
     ->bind([
         ':role' => $role,
-        ':limit' => $limit,
+        ':limit' => [$limit, 'int'],
     ]); // returns $d2o
 ```
 
@@ -73,14 +73,14 @@ $d2o->state($sql)
 $d2o->state($sql)
     ->bind([
         ':role' => $role,
-        ':limit' => $limit,
+        ':limit' => [$limit, 'int'],
     ])
     ->run(); // returns $d2o
 
 $d2o->state($sql)
     ->run([
         ':role' => $role,
-        ':limit' => $limit,
+        ':limit' => [$limit, 'int'],
     ]); // the same as the above
 ```
 
@@ -93,14 +93,14 @@ $d2o->state($sql)
 $row = $d2o->state($sql)
     ->run([
         ':role' => $role,
-        ':limit' => 1,
+        ':limit' => [1, 'int'],
     ])
     ->pick(); // recommended if the number of rows is supposed to be 1
 
 $result = $d2o->state($sql)
     ->run([
         ':role' => $role,
-        ':limit' => $limit,
+        ':limit' => [$limit, 'int'],
     ]); // recommended if the number of rows is supposed to be 2 or more
 
 $row1 = $result->pick();
@@ -117,7 +117,7 @@ $row3 = $result->pick();
 $rows = $d2o->state($sql)
     ->run([
         ':role' => $role,
-        ':limit' => $limit,
+        ':limit' => [$limit, 'int'],
     ])
     ->format();
 ```
