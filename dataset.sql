@@ -42,6 +42,27 @@ INSERT INTO `elements` VALUES (1,'H','hydrogen',0),(2,'He','helium',0),(3,'Li','
 UNLOCK TABLES;
 
 --
+-- Table structure for table `nulls`
+--
+
+DROP TABLE IF EXISTS `nulls`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `nulls` (
+  `value` varchar(255) DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `nulls`
+--
+
+LOCK TABLES `nulls` WRITE;
+/*!40000 ALTER TABLE `nulls` DISABLE KEYS */;
+/*!40000 ALTER TABLE `nulls` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 
@@ -74,4 +95,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-02-11 22:36:19
+-- Dump completed on 2016-02-13 20:13:41
