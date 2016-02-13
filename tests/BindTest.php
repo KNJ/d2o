@@ -8,7 +8,7 @@ class BindTest extends D2OReady
         $name = 'hydrogen';
         $sql = 'SELECT * FROM elements WHERE name = :name';
         $row = $this->d2o->state($sql)
-            ->bind([':name' => $name])
+            ->bind(['name' => $name])
             ->run()
             ->pick();
         $this->assertEquals($row->name, $name);
@@ -20,13 +20,13 @@ class BindTest extends D2OReady
         $this->assertNotEquals($row->name, $name);
 
         $row = $this->d2o
-            ->bind([':name' => $name])
+            ->bind(['name' => $name])
             ->run()
             ->pick();
         $this->assertEquals($row->name, $name);
 
         $name = 'lithium';
-        $this->d2o->bind([':name' => $name]);
+        $this->d2o->bind(['name' => $name]);
         $name = 'berylium';
         $row = $this->d2o->run()->pick();
         $this->assertNotEquals($row->name, $name);
@@ -36,7 +36,7 @@ class BindTest extends D2OReady
 
         $name = 'boron';
         $row = $this->d2o
-            ->run([':name' => $name])
+            ->run(['name' => $name])
             ->pick();
         $this->assertEquals($row->name, $name);
 
@@ -48,6 +48,14 @@ class BindTest extends D2OReady
         unset($name);
         $row = $this->d2o->run()->pick();
         $this->assertEquals($row->name, 'boron');
+
+        // with colon
+        $name = 'hydrogen';
+        $row = $this->d2o
+            ->bind([':name' => $name])
+            ->run()
+            ->pick();
+        $this->assertEquals($row->name, $name);
     }
 
     public function testBindingWithQuestionMarkPlaceholders()

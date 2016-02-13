@@ -42,6 +42,8 @@ class D2O extends PDO
             $value = (array) $value;
             if (is_int($key)) {
                 $key = $key + 1;
+            } else if (substr($key, 0, 1) !== ':') {
+                $key = ':' . $key;
             }
             if (!isset($value[1])) {
                 $value[1] = 'str';
