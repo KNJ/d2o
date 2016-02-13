@@ -1,5 +1,7 @@
 <?php
-use Wazly\D2O;
+namespace Wazly;
+
+use PHPUnit_Framework_TestCase;
 
 class ConnectionTest extends PHPUnit_Framework_TestCase
 {

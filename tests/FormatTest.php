@@ -1,5 +1,5 @@
 <?php
-use Wazly\D2O;
+namespace Wazly\D2O;
 
 class FormatTest extends D2OReady
 {
