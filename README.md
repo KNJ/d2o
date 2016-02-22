@@ -117,6 +117,14 @@ $rows = $d2o->state($sql)
     ->format();
 ```
 
+### getStatement()
+
+`D2O::getStatement()` returns PDOStatement object in D2O. To give an example, you can use `PDOStatement::fetchAll()` with it instead of `D2O::format()`.
+
+```php
+$rows = $d2o->state($sql)->run()->getStatement()->fetchAll();
+```
+
 ## Differences between D2O and PDO
 
 ### PDOStatement lies inside of D2O
