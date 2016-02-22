@@ -1,6 +1,8 @@
 <?php
 namespace Wazly\D2O;
 
+use PDO;
+
 class FormatTest extends D2OReady
 {
     public function testObjectFormat()
@@ -9,7 +11,7 @@ class FormatTest extends D2OReady
         $rows = $this->d2o->state($sql)
             ->run()
             ->format();
-        $this->assertArraySubset([
+        $subset = [
             0 => (object)[
                 'number' => '1',
                 'symbol' => 'H',
@@ -25,7 +27,16 @@ class FormatTest extends D2OReady
                 'symbol' => 'Li',
                 'name' => 'lithium',
             ],
-        ], $rows);
+        ];
+        $this->assertArraySubset($subset, $rows);
+
+        // Already fetched by D2O::format()
+        $rows = $this->d2o->getStatement()->fetchAll(PDO::FETCH_OBJ);
+        $this->assertEmpty($rows);
+
+        // To retrive data, PDO::run() again
+        $rows = $this->d2o->run()->getStatement()->fetchAll(PDO::FETCH_OBJ);
+        $this->assertArraySubset($subset, $rows);
     }
 
     public function testGroupFormat()

@@ -5,8 +5,8 @@ use PDO;
 
 class D2O extends PDO
 {
-    protected $stmt; // PDOStatement
-    protected $types = [
+    private $stmt; // PDOStatement
+    private $types = [
         'str' => PDO::PARAM_STR,
         'bool' => PDO::PARAM_BOOL,
         'null' => PDO::PARAM_NULL,
@@ -15,7 +15,7 @@ class D2O extends PDO
         'stmt' => PDO::PARAM_STMT,
         'input_output' => PDO::PARAM_INPUT_OUTPUT,
     ];
-    protected $styles = [
+    private $styles = [
         'a' => PDO::FETCH_ASSOC,
         'arr' => PDO::FETCH_ASSOC,
         'ary' => PDO::FETCH_ASSOC,
@@ -100,5 +100,10 @@ class D2O extends PDO
             return $result;
         }
         return $this->stmt->fetchAll($this->styles[$style]);
+    }
+
+    public function getStatement()
+    {
+        return $this->stmt;
     }
 }
