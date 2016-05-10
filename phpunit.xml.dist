@@ -1,4 +1,4 @@
-<phpunit bootstrap="tests/bootstrap.php">
+<phpunit bootstrap="tests/bootstrap.php" colors="true">
   <testsuites>
     <testsuite name="D2O">
       <directory>tests</directory>
@@ -9,4 +9,7 @@
       <directory suffix=".php">src</directory>
     </whitelist>
   </filter>
+  <logging>
+    <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
+  </logging>
 </phpunit>
