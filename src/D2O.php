@@ -22,6 +22,8 @@ class D2O extends PDO
         'array' => PDO::FETCH_ASSOC,
         'assoc' => PDO::FETCH_ASSOC,
         'association' => PDO::FETCH_ASSOC,
+        'c' => PDO::FETCH_CLASS,
+        'class' => PDO::FETCH_CLASS,
         'n' => PDO::FETCH_NUM,
         'num' => PDO::FETCH_NUM,
         'number' => PDO::FETCH_NUM,
@@ -78,12 +80,13 @@ class D2O extends PDO
         return $this;
     }
 
-    public function pick($style = 'object', $options = [])
+    public function pick($style = 'class', $class = \stdClass::class)
     {
-        return $this->stmt->fetch($this->styles[$style]);
+        $this->stmt->setFetchMode($this->styles[$style], $class);
+        return $this->stmt->fetch();
     }
 
-    public function format($style = 'object', $options = [
+    public function format($style = 'class', $class = \stdClass::class, $options = [
         'key' => false,
     ])
     {
@@ -99,7 +102,8 @@ class D2O extends PDO
             }
             return $result;
         }
-        return $this->stmt->fetchAll($this->styles[$style]);
+        $this->stmt->setFetchMode($this->styles[$style], $class);
+        return $this->stmt->fetchAll();
     }
 
     public function getStatement()

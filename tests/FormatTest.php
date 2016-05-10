@@ -63,7 +63,7 @@ class FormatTest extends D2OReady
 
         $rows = $this->d2o
             ->run()
-            ->format('group', ['key' => 'symbol']);
+            ->format('group', null, ['key' => 'symbol']);
         $this->assertArraySubset([
             'H' => (object)[
                 'number' => '1',
