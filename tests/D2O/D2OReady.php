@@ -10,6 +10,17 @@ class D2OReady extends PHPUnit_Framework_TestCase
 
     public function __construct()
     {
-        $this->d2o = new D2O("mysql:dbname=test;host=localhost", 'root', 'password');
+        $db_conf_path = __DIR__ . '/../../db_config.php';
+        if (is_file($db_conf_path)) {
+            $db = include $db_conf_path;
+        } else {
+            $db = include __DIR__ . '/../../db_config.example.php';
+        }
+
+        $this->d2o = new D2O(
+            'mysql:dbname=' . $db['name'] . ';host=' . $db['host'],
+            $db['user'],
+            $db['password']
+        );
     }
 }

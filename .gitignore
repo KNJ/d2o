@@ -1,3 +1,4 @@
 *.sh
-/vendor/
 composer.phar
+db_config.php
+/vendor/
