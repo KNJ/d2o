@@ -36,7 +36,7 @@ $dbh = new PDO($dsh, $username, $password);
 $sql = 'SELECT * FROM users WHERE id = :id';
 
 $stmt = $dbh->prepare($sql);
-$stmt->execute([':id' => 3]);
+$stmt->execute(['id' => 3]);
 $row = $stmt->fetch(PDO::FETCH_OBJ);
 ```
 
@@ -57,8 +57,8 @@ $d2o->state($sql); // returns $d2o
 ```php
 $d2o->state($sql)
     ->bind([
-        ':role' => $role,
-        ':limit' => [$limit, 'int'],
+        'role' => $role,
+        'limit' => [$limit, 'int'],
     ]); // returns $d2o
 ```
 
@@ -69,15 +69,15 @@ $d2o->state($sql)
 ```php
 $d2o->state($sql)
     ->bind([
-        ':role' => $role,
-        ':limit' => [$limit, 'int'],
+        'role' => $role,
+        'limit' => [$limit, 'int'],
     ])
     ->run(); // returns $d2o
 
 $d2o->state($sql)
     ->run([
-        ':role' => $role,
-        ':limit' => [$limit, 'int'],
+        'role' => $role,
+        'limit' => [$limit, 'int'],
     ]); // the same as the above
 ```
 
@@ -88,8 +88,8 @@ $d2o->state($sql)
 ```php
 $row = $d2o->state($sql)
     ->run([
-        ':role' => $role,
-        ':limit' => [1, 'int'],
+        'role' => $role,
+        'limit' => [1, 'int'],
     ])
     ->pick(); // recommended if the number of rows is supposed to be 1
 
@@ -111,8 +111,8 @@ $row3 = $result->pick();
 ```php
 $rows = $d2o->state($sql)
     ->run([
-        ':role' => $role,
-        ':limit' => [$limit, 'int'],
+        'role' => $role,
+        'limit' => [$limit, 'int'],
     ])
     ->format();
 ```
