@@ -28,7 +28,7 @@ $row = $d2o
     ->pick();
 ```
 
-otherwise need to `$dbh` as PDO and `$stmt` as PDOStatement and at least 3 statements are required:
+otherwise need to use `$dbh` as PDO and `$stmt` as PDOStatement and at least 3 statements are required:
 
 ```php
 $dbh = new PDO($dsh, $username, $password);
