@@ -1,4 +1,5 @@
 *.sh
 composer.phar
 db_config.php
+demo.php
 /vendor/
