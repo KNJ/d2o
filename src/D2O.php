@@ -5,7 +5,14 @@ use PDO;
 
 class D2O extends PDO
 {
-    private $stmt; // PDOStatement
+    /**
+     * @var PDOStatement $stmt
+     */
+    private $stmt;
+
+    /**
+     * @var array $types
+     */
     private $types = [
         'str' => PDO::PARAM_STR,
         'bool' => PDO::PARAM_BOOL,
@@ -15,6 +22,10 @@ class D2O extends PDO
         'stmt' => PDO::PARAM_STMT,
         'input_output' => PDO::PARAM_INPUT_OUTPUT,
     ];
+
+    /**
+     * @var array $styles fetch styles
+     */
     private $styles = [
         'a' => PDO::FETCH_ASSOC,
         'arr' => PDO::FETCH_ASSOC,
@@ -32,12 +43,22 @@ class D2O extends PDO
         'object' => PDO::FETCH_OBJ,
     ];
 
+    /**
+     * @param  string    $statement
+     * @param  array     $driver_options
+     * @return Wazly\D2O
+     */
     public function state($statement, $driver_options = [])
     {
         $this->stmt = $this->prepare($statement, $driver_options);
         return $this;
     }
 
+    /**
+     * @param  array     $input_parameters
+     * @param  bool      $auto
+     * @return Wazly\D2O
+     */
     public function bind($input_parameters, $auto = true)
     {
         foreach ($input_parameters as $key => $value) {
@@ -71,6 +92,11 @@ class D2O extends PDO
         return $this;
     }
 
+    /**
+     * @param  bool       $input_parameters
+     * @param  bool       $auto
+     * @return Wazly\D2O
+     */
     public function run($input_parameters = false, $auto = true)
     {
         if ($input_parameters) {
@@ -80,12 +106,22 @@ class D2O extends PDO
         return $this;
     }
 
+    /**
+     * @param  string $style
+     * @param  string $class
+     * @return object|array
+     */
     public function pick($style = 'class', $class = \stdClass::class)
     {
         $this->stmt->setFetchMode($this->styles[$style], $class);
         return $this->stmt->fetch();
     }
 
+    /**
+     * @param  string $style
+     * @param  string $class
+     * @return array
+     */
     public function format($style = 'class', $class = \stdClass::class, $options = [
         'key' => false,
     ])
@@ -106,6 +142,9 @@ class D2O extends PDO
         return $this->stmt->fetchAll();
     }
 
+    /**
+     * @return PDOStatement
+     */
     public function getStatement()
     {
         return $this->stmt;
